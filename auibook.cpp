@@ -187,6 +187,7 @@ bool wxAuiTabContainer::AddPage(wxWindow* page,
     wxAuiNotebookPage page_info;
     page_info = info;
     page_info.window = page;
+    page_info.object = info.object;
     page_info.hover = false;
 
     m_pages.Add(page_info);
@@ -207,6 +208,7 @@ bool wxAuiTabContainer::InsertPage(wxWindow* page,
     wxAuiNotebookPage page_info;
     page_info = info;
     page_info.window = page;
+    page_info.object = info.object;
     page_info.hover = false;
 
     if (idx >= m_pages.GetCount())
@@ -2003,6 +2005,7 @@ bool wxAuiNotebook::InsertPageEx(size_t page_idx,
 
     wxAuiNotebookPage info;
     info.window = page;
+    info.object = object;
     info.caption = caption;
     info.bitmap = bitmap;
     info.active = false;
