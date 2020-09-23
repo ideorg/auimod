@@ -26,7 +26,7 @@
 #if wxUSE_AUI
 #if wxUSE_MDI
 
-#include "wx/aui/tabmdi.h"
+#include "tabmdi.h"
 
 #ifndef WX_PRECOMP
     #include "wx/panel.h"
@@ -37,7 +37,7 @@
 #endif //WX_PRECOMP
 
 #include "wx/stockitem.h"
-#include "wx/aui/dockart.h"
+#include "dockart.h"
 
 enum MDI_MENU_ID
 {

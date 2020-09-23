@@ -744,7 +744,7 @@ typedef void (wxEvtHandler::*wxAuiToolBarEventFunction)(wxAuiToolBarEvent&);
 
 #if defined(__WXMSW__) && wxUSE_UXTHEME
     #define wxHAS_NATIVE_TOOLBAR_ART
-    #include "wx/aui/barartmsw.h"
+    #include "barartmsw.h"
     #define wxAuiDefaultToolBarArt wxAuiMSWToolBarArt
 #endif
 

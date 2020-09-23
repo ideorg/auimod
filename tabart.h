@@ -316,11 +316,11 @@ protected:
 #ifndef __WXUNIVERSAL__
     #if defined(__WXGTK20__) && !defined(__WXGTK3__)
         #define wxHAS_NATIVE_TABART
-        #include "wx/aui/tabartgtk.h"
+        #include "tabartgtk.h"
         #define wxAuiDefaultTabArt wxAuiGtkTabArt
     #elif defined(__WXMSW__) && wxUSE_UXTHEME
         #define wxHAS_NATIVE_TABART
-        #include "wx/aui/tabartmsw.h"
+        #include "tabartmsw.h"
         #define wxAuiDefaultTabArt wxAuiMSWTabArt
     #endif
 #endif // !__WXUNIVERSAL__

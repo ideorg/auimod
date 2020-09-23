@@ -21,8 +21,8 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/tabart.h"
-#include "wx/aui/framemanager.h"
+#include "tabart.h"
+#include "framemanager.h"
 #include "wx/bookctrl.h"
 #include "wx/containr.h"
 

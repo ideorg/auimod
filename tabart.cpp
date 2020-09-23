@@ -29,9 +29,9 @@
 #endif
 
 #include "wx/renderer.h"
-#include "wx/aui/auibook.h"
-#include "wx/aui/framemanager.h"
-#include "wx/aui/dockart.h"
+#include "auibook.h"
+#include "framemanager.h"
+#include "dockart.h"
 
 #ifdef __WXMAC__
 #include "wx/osx/private.h"

@@ -24,9 +24,9 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/framemanager.h"
-#include "wx/aui/floatpane.h"
-#include "wx/aui/dockart.h"
+#include "framemanager.h"
+#include "floatpane.h"
+#include "dockart.h"
 
 #ifndef WX_PRECOMP
 #endif

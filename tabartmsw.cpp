@@ -20,8 +20,8 @@
     #include "wx/settings.h"
 #endif
 
-#include "wx/aui/tabart.h"
-#include "wx/aui/auibook.h"
+#include "tabart.h"
+#include "auibook.h"
 #include "wx/msw/uxtheme.h"
 #include "wx/msw/private.h"
 #include "wx/renderer.h"

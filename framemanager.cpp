@@ -24,11 +24,11 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/framemanager.h"
-#include "wx/aui/dockart.h"
-#include "wx/aui/floatpane.h"
-#include "wx/aui/tabmdi.h"
-#include "wx/aui/auibar.h"
+#include "framemanager.h"
+#include "dockart.h"
+#include "floatpane.h"
+#include "tabmdi.h"
+#include "auibar.h"
 #include "wx/mdi.h"
 #include "wx/wupdlock.h"
 

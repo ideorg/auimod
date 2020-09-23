@@ -22,7 +22,7 @@
 #include "wx/notebook.h"
 #include "wx/icon.h"
 #include "wx/mdi.h"
-#include "wx/aui/auibook.h"
+#include "auibook.h"
 
 //-----------------------------------------------------------------------------
 // classes

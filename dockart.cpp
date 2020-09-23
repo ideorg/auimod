@@ -24,10 +24,10 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/framemanager.h"
-#include "wx/aui/dockart.h"
-#include "wx/aui/auibook.h"
-#include "wx/aui/tabart.h"
+#include "framemanager.h"
+#include "dockart.h"
+#include "auibook.h"
+#include "tabart.h"
 
 #ifndef WX_PRECOMP
     #include "wx/settings.h"

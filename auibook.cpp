@@ -29,7 +29,7 @@
     #include "wx/frame.h"
 #endif
 
-#include "wx/aui/tabmdi.h"
+#include "tabmdi.h"
 
 #ifdef __WXMAC__
 #include "wx/osx/private.h"

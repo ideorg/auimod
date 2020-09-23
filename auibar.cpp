@@ -32,8 +32,8 @@
 #include "wx/settings.h"
 #include "wx/menu.h"
 
-#include "wx/aui/auibar.h"
-#include "wx/aui/framemanager.h"
+#include "auibar.h"
+#include "framemanager.h"
 
 #ifdef __WXMAC__
 #include "wx/osx/private.h"

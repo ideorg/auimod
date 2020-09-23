@@ -20,7 +20,7 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/tabart.h"
+#include "tabart.h"
 #include "wx/gdicmn.h"
 
 class wxWindow;

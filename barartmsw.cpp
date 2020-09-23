@@ -22,8 +22,8 @@
     #include "wx/dc.h"
 #endif
 
-#include "wx/aui/auibar.h"
-#include "wx/aui/framemanager.h"
+#include "auibar.h"
+#include "framemanager.h"
 #include "wx/msw/uxtheme.h"
 #include "wx/msw/private.h"
 
