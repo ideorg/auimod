@@ -64,7 +64,7 @@ MyFrame::MyFrame()
 
 void MyFrame::OnNew(wxCommandEvent& event)
 {
-    auiNotebook->AddPage(new wxStyledTextCtrl(auiNotebook,wxID_ANY), "Untitled");
+    auiNotebook->AddPageEx(new wxStyledTextCtrl(auiNotebook,wxID_ANY), nullptr, "Untitled");
 }
 
 void MyFrame::OnOpen(wxCommandEvent& event)
@@ -75,7 +75,7 @@ void MyFrame::OnOpen(wxCommandEvent& event)
     stc->LoadFile(openDialog.GetPath());
     wxFileName file(openDialog.GetPath());
     wxString title = file.GetFullName();
-    auiNotebook->AddPage(stc, title, true);
+    auiNotebook->AddPageEx(stc, nullptr, title, true);
 }
 
 void MyFrame::OnExit(wxCommandEvent& event)
