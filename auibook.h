@@ -346,9 +346,16 @@ public:
 
     virtual bool AddPage(wxWindow *page, const wxString &text, bool select,
                          int imageId) wxOVERRIDE;
+
+    virtual bool AddPageEx(wxWindow *page, wxObject* object, const wxString &text, bool select,
+                         int imageId);
+
     virtual bool DeleteAllPages() wxOVERRIDE;
     virtual bool InsertPage(size_t index, wxWindow *page, const wxString &text,
                             bool select, int imageId) wxOVERRIDE;
+
+    virtual bool InsertPageEx(size_t index, wxWindow *page, wxObject* object, const wxString &text,
+                            bool select, int imageId);
 
     virtual wxSize DoGetBestSize() const wxOVERRIDE;
 

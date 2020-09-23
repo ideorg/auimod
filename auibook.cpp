@@ -20,7 +20,7 @@
 
 #if wxUSE_AUI
 
-#include "wx/aui/auibook.h"
+#include "auibook.h"
 
 #ifndef WX_PRECOMP
     #include "wx/settings.h"
@@ -3686,6 +3686,14 @@ int wxAuiNotebook::DoModifySelection(size_t n, bool events)
     }
 
     return m_curPage;
+}
+
+bool wxAuiNotebook::AddPageEx(wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
+    return false;
+}
+
+bool wxAuiNotebook::InsertPageEx(size_t index, wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
+    return false;
 }
 
 void wxAuiTabCtrl::SetHoverTab(wxWindow* wnd)
