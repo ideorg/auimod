@@ -80,6 +80,5 @@ void MyFrame::OnOpen(wxCommandEvent& event)
 
 void MyFrame::OnExit(wxCommandEvent& event)
 {
-    auto page = auiNotebook->GetPage(0);
     Close(true);
 }
