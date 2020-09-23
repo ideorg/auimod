@@ -140,7 +140,9 @@ public:
     bool TabHitTest(int x, int y, wxWindow** hit) const;
     bool ButtonHitTest(int x, int y, wxAuiTabContainerButton** hit) const;
     wxWindow* GetWindowFromIdx(size_t idx) const;
+    wxAuiNotebookPage* GetWindowFromIdxEx(size_t idx) const;
     int GetIdxFromWindow(wxWindow* page) const;
+    int GetIdxFromObject(wxObject* object) const;
     size_t GetPageCount() const;
     wxAuiNotebookPage& GetPage(size_t idx);
     const wxAuiNotebookPage& GetPage(size_t idx) const;
@@ -301,6 +303,7 @@ public:
 
     virtual size_t GetPageCount() const wxOVERRIDE;
     virtual wxWindow* GetPage(size_t pageIdx) const wxOVERRIDE;
+    virtual wxAuiNotebookPage* GetPageEx(size_t pageIdx) const;
     int GetPageIndex(wxWindow* pageWnd) const;
 
     bool SetPageText(size_t page, const wxString& text) wxOVERRIDE;

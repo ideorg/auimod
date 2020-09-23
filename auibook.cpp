@@ -328,6 +328,14 @@ wxWindow* wxAuiTabContainer::GetWindowFromIdx(size_t idx) const
     return m_pages[idx].window;
 }
 
+wxAuiNotebookPage* wxAuiTabContainer::GetWindowFromIdxEx(size_t idx) const
+{
+    if (idx >= m_pages.GetCount())
+        return NULL;
+
+    return &m_pages[idx];
+}
+
 int wxAuiTabContainer::GetIdxFromWindow(wxWindow* wnd) const
 {
     const size_t page_count = m_pages.GetCount();
@@ -335,6 +343,17 @@ int wxAuiTabContainer::GetIdxFromWindow(wxWindow* wnd) const
     {
         wxAuiNotebookPage& page = m_pages.Item(i);
         if (page.window == wnd)
+            return i;
+    }
+    return wxNOT_FOUND;
+}
+
+int wxAuiTabContainer::GetIdxFromObject(wxObject* object) const {
+    const size_t page_count = m_pages.GetCount();
+    for ( size_t i = 0; i < page_count; ++i )
+    {
+        wxAuiNotebookPage& page = m_pages.Item(i);
+        if (page.object == object)
             return i;
     }
     return wxNOT_FOUND;
@@ -2340,6 +2359,14 @@ wxWindow* wxAuiNotebook::GetPage(size_t page_idx) const
     wxASSERT(page_idx < m_tabs.GetPageCount());
 
     return m_tabs.GetWindowFromIdx(page_idx);
+}
+
+
+wxAuiNotebookPage* wxAuiNotebook::GetPageEx(size_t page_idx) const
+{
+    wxASSERT(page_idx < m_tabs.GetPageCount());
+
+    return m_tabs.GetWindowFromIdxEx(page_idx);
 }
 
 // DoSizing() performs all sizing operations in each tab control
