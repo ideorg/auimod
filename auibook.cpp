@@ -3709,23 +3709,23 @@ int wxAuiNotebook::DoModifySelection(size_t n, bool events)
 bool wxAuiNotebook::AddPageEx(wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
     if(HasImageList())
     {
-        return AddPage(page, text, select, GetImageList()->GetBitmap(imageId));
+        return AddPageEx(page, object, text, select, GetImageList()->GetBitmap(imageId));
     }
     else
     {
-        return AddPage(page, text, select, wxNullBitmap);
+        return AddPageEx(page, object, text, select, wxNullBitmap);
     }
 }
 
 bool wxAuiNotebook::InsertPageEx(size_t index, wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
     if(HasImageList())
     {
-        return InsertPage(index, page, text, select,
+        return InsertPageEx(index, page,object, text, select,
                           GetImageList()->GetBitmap(imageId));
     }
     else
     {
-        return InsertPage(index, page, text, select, wxNullBitmap);
+        return InsertPageEx(index, page,object, text, select, wxNullBitmap);
     }
 }
 
