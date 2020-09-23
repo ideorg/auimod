@@ -1971,8 +1971,26 @@ bool wxAuiNotebook::AddPage(wxWindow* page,
     return InsertPage(GetPageCount(), page, caption, select, bitmap);
 }
 
+
+bool wxAuiNotebook::AddPageEx(wxWindow* page, wxObject* object,
+                            const wxString& caption,
+                            bool select,
+                            const wxBitmap& bitmap)
+{
+    return InsertPageEx(GetPageCount(), page, object, caption, select, bitmap);
+}
+
 bool wxAuiNotebook::InsertPage(size_t page_idx,
+                                 wxWindow* page,
+                                 const wxString& caption,
+                                 bool select,
+                                 const wxBitmap& bitmap) {
+    return InsertPageEx(page_idx, page,nullptr, caption, select, bitmap);
+}
+
+bool wxAuiNotebook::InsertPageEx(size_t page_idx,
                                wxWindow* page,
+                               wxObject* object,
                                const wxString& caption,
                                bool select,
                                const wxBitmap& bitmap)
@@ -3689,11 +3707,26 @@ int wxAuiNotebook::DoModifySelection(size_t n, bool events)
 }
 
 bool wxAuiNotebook::AddPageEx(wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
-    return false;
+    if(HasImageList())
+    {
+        return AddPage(page, text, select, GetImageList()->GetBitmap(imageId));
+    }
+    else
+    {
+        return AddPage(page, text, select, wxNullBitmap);
+    }
 }
 
 bool wxAuiNotebook::InsertPageEx(size_t index, wxWindow *page, wxObject* object, const wxString &text, bool select, int imageId) {
-    return false;
+    if(HasImageList())
+    {
+        return InsertPage(index, page, text, select,
+                          GetImageList()->GetBitmap(imageId));
+    }
+    else
+    {
+        return InsertPage(index, page, text, select, wxNullBitmap);
+    }
 }
 
 void wxAuiTabCtrl::SetHoverTab(wxWindow* wnd)

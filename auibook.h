@@ -278,8 +278,19 @@ public:
                  bool select = false,
                  const wxBitmap& bitmap = wxNullBitmap);
 
+    bool AddPageEx(wxWindow* page, wxObject* object,
+                 const wxString& caption,
+                 bool select = false,
+                 const wxBitmap& bitmap = wxNullBitmap);
+
     bool InsertPage(size_t pageIdx,
                     wxWindow* page,
+                    const wxString& caption,
+                    bool select = false,
+                    const wxBitmap& bitmap = wxNullBitmap);
+
+    bool InsertPageEx(size_t pageIdx,
+                    wxWindow* page, wxObject* object,
                     const wxString& caption,
                     bool select = false,
                     const wxBitmap& bitmap = wxNullBitmap);
