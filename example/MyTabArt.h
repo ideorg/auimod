@@ -5,7 +5,7 @@
 
 class MyTabArt: public wxAuiGenericTabArt {
 public:
-    wxColour GetFontColour(bool pageActive, const wxColour& back_color) wxOVERRIDE;
+    wxColour GetFontColour(const wxAuiNotebookPage& page, const wxColour& back_color) wxOVERRIDE;
     wxAuiTabArt* Clone() wxOVERRIDE;
 };
 

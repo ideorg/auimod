@@ -603,7 +603,7 @@ void wxAuiGenericTabArt::DrawTab(wxDC& dc,
                           tab_width - (text_offset-tab_x) - close_button_width);
 
     // draw tab text
-    wxColor font_color = GetFontColour(page.active, back_color);
+    wxColor font_color = GetFontColour(page, back_color);
     dc.SetTextForeground(font_color);
     dc.DrawText(draw_text,
                 text_offset,
@@ -901,9 +901,9 @@ void wxAuiGenericTabArt::SetActiveColour(const wxColour& colour)
     m_activeColour = colour;
 }
 
-wxColour wxAuiGenericTabArt::GetFontColour(bool pageActive, const wxColour &back_color) {
+wxColour wxAuiGenericTabArt::GetFontColour(const wxAuiNotebookPage& page, const wxColour &back_color) {
     wxColor sys_color = wxSystemSettings::GetColour(
-            pageActive ? wxSYS_COLOUR_CAPTIONTEXT : wxSYS_COLOUR_INACTIVECAPTIONTEXT);
+            page.active ? wxSYS_COLOUR_CAPTIONTEXT : wxSYS_COLOUR_INACTIVECAPTIONTEXT);
     wxColor font_color = wxAuiHasSufficientContrast(back_color, sys_color) ? sys_color
                                                                            : wxAuiGetBetterContrastColour(back_color, *wxWHITE, *wxBLACK);
     return font_color;
