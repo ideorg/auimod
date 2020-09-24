@@ -5,6 +5,7 @@
 #include "../auibook.h"
 #include <wx/stc/stc.h>
 #include <wx/filename.h>
+#include "MyTabArt.h"
 
 class MyApp : public wxApp
 {
@@ -57,6 +58,8 @@ MyFrame::MyFrame()
     manager.SetManagedWindow(this);
     manager.SetFlags(wxAUI_MGR_DEFAULT);
     auiNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize );
+    wxAuiTabArt *art = new MyTabArt;
+    auiNotebook->SetArtProvider(art);
     manager.AddPane(auiNotebook, wxAuiPaneInfo().Left().Caption(wxT("Edytor")).MaximizeButton(true).MinimizeButton(true).PinButton(true).PaneBorder(false).Dock().Resizable().FloatingSize(wxDefaultSize).CentrePane().DefaultPane());
     sizer->Add(auiNotebook, 1, wxEXPAND | wxALL, 0);
     SetSizer(sizer);

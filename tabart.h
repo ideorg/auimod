@@ -144,6 +144,8 @@ public:
                  wxWindow* wnd,
                  const wxRect& rect) wxOVERRIDE;
 
+    virtual wxColour GetFontColour(bool pageActive, const wxColour& back_color);
+
     void DrawTab(wxDC& dc,
                  wxWindow* wnd,
                  const wxAuiNotebookPage& pane,

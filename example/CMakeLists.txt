@@ -11,7 +11,7 @@ set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base stc REQUIRED)
 include(${wxWidgets_USE_FILE})
 
-set(SOURCE_FILES main.cpp
+set(SOURCE_FILES main.cpp MyTabArt.cpp
         ../framemanager.cpp
         ../auibook.cpp
         ../tabmdi.cpp
