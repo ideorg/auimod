@@ -2131,7 +2131,9 @@ bool wxAuiNotebook::RemovePage(size_t page_idx)
         return false;
 
     bool is_curpage = (m_curPage == (int)page_idx);
-    bool is_active_in_split = ctrl->GetPage(ctrl_idx).active;
+    auto page_info = ctrl->GetPage(ctrl_idx);
+    delete page_info.object;
+    bool is_active_in_split = page_info.active;
 
 
     // remove the tab from main catalog
