@@ -1504,7 +1504,7 @@ void wxAuiTabCtrl::OnChar(wxKeyEvent& event)
                 newPage = GetActivePage() - 1;
         }
     }
-    else if (!m_WantHomeEnd) {
+    else if (m_WantHomeEnd) {
         if (key == WXK_HOME)
         {
             newPage = 0;
