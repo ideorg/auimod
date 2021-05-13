@@ -1421,6 +1421,12 @@ void wxAuiTabCtrl::OnChar(wxKeyEvent& event)
 
     if (key == WXK_TAB || key == WXK_PAGEUP || key == WXK_PAGEDOWN)
     {
+        if (!m_WantPageUpDown && (key == WXK_PAGEUP || key == WXK_PAGEDOWN)) {
+            auto page_info = GetPage(GetActivePage());
+            page_info.window->SetFocus();
+            event.Skip();
+            return;
+        }
         bool bCtrlDown = event.ControlDown();
         bool bShiftDown = event.ShiftDown();
 
@@ -1498,16 +1504,24 @@ void wxAuiTabCtrl::OnChar(wxKeyEvent& event)
                 newPage = GetActivePage() - 1;
         }
     }
-    else if (key == WXK_HOME)
-    {
-        newPage = 0;
+    else if (!m_WantHomeEnd) {
+        if (key == WXK_HOME)
+        {
+            newPage = 0;
+        }
+        else if (key == WXK_END)
+        {
+            newPage = (int) (m_pages.GetCount() - 1);
+        }
+        else
+            event.Skip();
     }
-    else if (key == WXK_END)
-    {
-        newPage = (int) (m_pages.GetCount() - 1);
-    }
-    else
+    else {
+        auto page_info = GetPage(GetActivePage());
+        page_info.window->SetFocus();
         event.Skip();
+        return;
+    }
 
     if (newPage != -1)
     {

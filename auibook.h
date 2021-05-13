@@ -118,8 +118,14 @@ WX_DECLARE_USER_EXPORTED_OBJARRAY(wxAuiTabContainerButton, wxAuiTabContainerButt
 
 class WXDLLIMPEXP_AUI wxAuiTabContainer
 {
+protected:
+    bool m_WantPageUpDown = false;
+    bool m_WantHomeEnd = false;
 public:
-
+    bool GetWantPageUpDown() {return m_WantPageUpDown;}
+    bool GetWantHomeEnd() {return m_WantHomeEnd;}
+    void SetWantPageUpDown(bool value) {m_WantPageUpDown = value;}
+    void SetWantHomeEnd(bool value) {m_WantHomeEnd = value;}
     wxAuiTabContainer();
     virtual ~wxAuiTabContainer();
 
@@ -438,8 +444,12 @@ protected:
         SetSelectionToWindow(page.window);
     }
 
-protected:
+public:
+    wxAuiTabContainer* GetTabs() {
+        return &m_tabs;
+    }
 
+protected:
     wxAuiManager m_mgr;
     wxAuiTabContainer m_tabs;
     int m_curPage;

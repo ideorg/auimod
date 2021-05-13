@@ -58,6 +58,7 @@ MyFrame::MyFrame()
     manager.SetManagedWindow(this);
     manager.SetFlags(wxAUI_MGR_DEFAULT);
     auiNotebook = new wxAuiNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize );
+    auiNotebook->GetTabs()->SetWantHomeEnd(true);
     wxAuiTabArt *art = new MyTabArt;
     auiNotebook->SetArtProvider(art);
     manager.AddPane(auiNotebook, wxAuiPaneInfo().Left().Caption(wxT("Edytor")).MaximizeButton(true).MinimizeButton(true).PinButton(true).PaneBorder(false).Dock().Resizable().FloatingSize(wxDefaultSize).CentrePane().DefaultPane());
