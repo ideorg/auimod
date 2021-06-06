@@ -12,6 +12,7 @@
 #define _WX_AUIBAR_H_
 
 #include "wx/defs.h"
+#include "compat.h"
 
 #if wxUSE_AUI
 

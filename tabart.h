@@ -17,6 +17,7 @@
 // ----------------------------------------------------------------------------
 
 #include "wx/defs.h"
+#include "compat.h"
 
 #if wxUSE_AUI
 
@@ -318,7 +319,7 @@ protected:
 #ifndef __WXUNIVERSAL__
     #if defined(__WXGTK20__) && !defined(__WXGTK3__)
         #define wxHAS_NATIVE_TABART
-        #include "tabartgtk.h"
+        #include "wx/aui/tabartgtk.h"
         #define wxAuiDefaultTabArt wxAuiGtkTabArt
     #elif defined(__WXMSW__) && wxUSE_UXTHEME
         #define wxHAS_NATIVE_TABART

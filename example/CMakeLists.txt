@@ -8,7 +8,7 @@ add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 set(wxWidgets_ROOT_DIR /usr/include/wx-3.0)
 set(wxWidgets_CONFIGURATION mswu)
-find_package(wxWidgets COMPONENTS core base stc REQUIRED)
+find_package(wxWidgets COMPONENTS core base stc aui REQUIRED)
 include(${wxWidgets_USE_FILE})
 
 set(SOURCE_FILES main.cpp MyTabArt.cpp

@@ -165,7 +165,8 @@ wxAuiManager* wxAuiFloatingFrame::GetOwnerManager() const
     return m_ownerMgr;
 }
 
-bool wxAuiFloatingFrame::IsTopNavigationDomain(NavigationKind kind) const
+/* not implement
+ * bool wxAuiFloatingFrame::IsTopNavigationDomain(NavigationKind kind) const
 {
     switch ( kind )
     {
@@ -180,7 +181,7 @@ bool wxAuiFloatingFrame::IsTopNavigationDomain(NavigationKind kind) const
     }
 
     return wxAuiFloatingFrameBaseClass::IsTopNavigationDomain(kind);
-}
+} */
 
 void wxAuiFloatingFrame::OnSize(wxSizeEvent& WXUNUSED(event))
 {

@@ -85,7 +85,7 @@ static wxColor GetBaseColor()
 
 static bool IsThemeDark()
 {
-    return wxSystemSettings::GetAppearance().IsDark();
+    return IsUsingDarkBackground();
 }
 
 
@@ -123,10 +123,10 @@ wxAuiGenericToolBarArt::wxAuiGenericToolBarArt()
     m_flags = 0;
     m_textOrientation = wxAUI_TBTOOL_TEXT_BOTTOM;
 
-    m_separatorSize = wxWindow::FromDIP( 7, NULL);
-    m_gripperSize   = wxWindow::FromDIP( 7, NULL);
-    m_overflowSize  = wxWindow::FromDIP(16, NULL);
-    m_dropdownSize  = wxWindow::FromDIP(10, NULL);
+    m_separatorSize = ::FromDIP( 7, NULL);
+    m_gripperSize   = ::FromDIP( 7, NULL);
+    m_overflowSize  = ::FromDIP(16, NULL);
+    m_dropdownSize  = ::FromDIP(10, NULL);
 
 
     m_font = *wxNORMAL_FONT;
@@ -148,7 +148,7 @@ void wxAuiGenericToolBarArt::UpdateColoursFromSystem()
     wxColor darker3Colour = m_baseColour.ChangeLightness(60);
     wxColor darker5Colour = m_baseColour.ChangeLightness(40);
 
-    int pen_width = wxWindow::FromDIP(1, NULL);
+    int pen_width = ::FromDIP(1, NULL);
     m_gripperPen1 = wxPen(darker5Colour, pen_width);
     m_gripperPen2 = wxPen(darker3Colour, pen_width);
     m_gripperPen3 = wxPen(*wxStockGDI::GetColour(wxStockGDI::COLOUR_WHITE), pen_width);
@@ -304,13 +304,13 @@ void wxAuiGenericToolBarArt::DrawButton(
     }
     else if (m_textOrientation == wxAUI_TBTOOL_TEXT_RIGHT)
     {
-        bmpX = rect.x + wnd->FromDIP(3);
+        bmpX = rect.x + ::FromDIP(3, wnd);
 
         bmpY = rect.y +
                 (rect.height/2) -
                 (bmpSize.y/2);
 
-        textX = bmpX + wnd->FromDIP(3) + bmpSize.x;
+        textX = bmpX + ::FromDIP(3, wnd) + bmpSize.x;
         textY = rect.y +
                  (rect.height/2) -
                  (textHeight/2);
@@ -421,13 +421,13 @@ void wxAuiGenericToolBarArt::DrawDropDownButton(
     }
     else if (m_textOrientation == wxAUI_TBTOOL_TEXT_RIGHT)
     {
-        bmpX = rect.x + wnd->FromDIP(3);
+        bmpX = rect.x + FromDIP(3, wnd);
 
         bmpY = rect.y +
                 (rect.height/2) -
                 (item.GetBitmap().GetScaledHeight()/2);
 
-        textX = bmpX + wnd->FromDIP(3) + item.GetBitmap().GetScaledWidth();
+        textX = bmpX + FromDIP(3, wnd) + item.GetBitmap().GetScaledWidth();
         textY = rect.y +
                  (rect.height/2) -
                  (textHeight/2);
@@ -564,7 +564,7 @@ wxSize wxAuiGenericToolBarArt::GetToolSize(
                                         const wxAuiToolBarItem& item)
 {
     if (!item.GetBitmap().IsOk() && !(m_flags & wxAUI_TB_TEXT))
-        return wnd->FromDIP(wxSize(16,16));
+        return ::FromDIP(wxSize(16,16), wnd);
 
     const wxBitmap& bmp = item.GetBitmap();
     int width = bmp.IsOk() ? bmp.GetScaledWidth() : 0;
@@ -583,14 +583,14 @@ wxSize wxAuiGenericToolBarArt::GetToolSize(
             if ( !item.GetLabel().empty() )
             {
                 dc.GetTextExtent(item.GetLabel(), &tx, &ty);
-                width = wxMax(width, tx+wnd->FromDIP(6));
+                width = wxMax(width, tx + ::FromDIP(6, wnd));
             }
         }
         else if ( m_textOrientation == wxAUI_TBTOOL_TEXT_RIGHT &&
                   !item.GetLabel().empty() )
         {
-            width += wnd->FromDIP(3); // space between left border and bitmap
-            width += wnd->FromDIP(3); // space between bitmap and text
+            width += ::FromDIP(3, wnd); // space between left border and bitmap
+            width += ::FromDIP(3, wnd); // space between bitmap and text
 
             if ( !item.GetLabel().empty() )
             {
@@ -606,7 +606,7 @@ wxSize wxAuiGenericToolBarArt::GetToolSize(
     if (item.HasDropDown())
     {
         int dropdownWidth = GetElementSize(wxAUI_TBART_DROPDOWN_SIZE);
-        width += dropdownWidth + wnd->FromDIP(4);
+        width += dropdownWidth + ::FromDIP(4, wnd);
     }
 
     return wxSize(width, height);
@@ -626,7 +626,7 @@ void wxAuiGenericToolBarArt::DrawSeparator(
     if (horizontal)
     {
         rect.x += (rect.width/2);
-        rect.width = wnd->FromDIP(1);
+        rect.width = ::FromDIP(1, wnd);
         int new_height = (rect.height*3)/4;
         rect.y += (rect.height/2) - (new_height/2);
         rect.height = new_height;
@@ -634,7 +634,7 @@ void wxAuiGenericToolBarArt::DrawSeparator(
     else
     {
         rect.y += (rect.height/2);
-        rect.height = wnd->FromDIP(1);
+        rect.height = ::FromDIP(1, wnd);
         int new_width = (rect.width*3)/4;
         rect.x += (rect.width/2) - (new_width/2);
         rect.width = new_width;
@@ -656,28 +656,28 @@ void wxAuiGenericToolBarArt::DrawGripper(wxDC& dc,
 
         if (m_flags & wxAUI_TB_VERTICAL)
         {
-            x = rect.x + (i*wnd->FromDIP(4)) + wnd->FromDIP(5);
-            y = rect.y + wnd->FromDIP(3);
-            if (x > rect.GetWidth()-wnd->FromDIP(5))
+            x = rect.x + (i * ::FromDIP(4, wnd)) + ::FromDIP(5, wnd);
+            y = rect.y + ::FromDIP(3, wnd);
+            if (x > rect.GetWidth() - ::FromDIP(5, wnd))
                 break;
         }
         else
         {
-            x = rect.x + wnd->FromDIP(3);
-            y = rect.y + (i*wnd->FromDIP(4)) + wnd->FromDIP(5);
-            if (y > rect.GetHeight()-wnd->FromDIP(5))
+            x = rect.x + ::FromDIP(3, wnd);
+            y = rect.y + (i * ::FromDIP(4, wnd)) + ::FromDIP(5, wnd);
+            if (y > rect.GetHeight() - ::FromDIP(5, wnd))
                 break;
         }
 
         dc.SetPen(m_gripperPen1);
         dc.DrawPoint(x, y);
         dc.SetPen(m_gripperPen2);
-        dc.DrawPoint(x                , y+wnd->FromDIP(1));
-        dc.DrawPoint(x+wnd->FromDIP(1), y                );
+        dc.DrawPoint(x                , y + ::FromDIP(1, wnd));
+        dc.DrawPoint(x + ::FromDIP(1, wnd), y                );
         dc.SetPen(m_gripperPen3);
-        dc.DrawPoint(x+wnd->FromDIP(2), y+wnd->FromDIP(1));
-        dc.DrawPoint(x+wnd->FromDIP(2), y+wnd->FromDIP(2));
-        dc.DrawPoint(x+wnd->FromDIP(1), y+wnd->FromDIP(2));
+        dc.DrawPoint(x + ::FromDIP(2, wnd), y + ::FromDIP(1, wnd));
+        dc.DrawPoint(x + ::FromDIP(2, wnd), y + ::FromDIP(2, wnd));
+        dc.DrawPoint(x + ::FromDIP(1, wnd), y + ::FromDIP(2, wnd));
 
         i++;
     }
@@ -841,8 +841,8 @@ void wxAuiToolBar::Init()
     m_actionItem = NULL;
     m_tipItem = NULL;
     m_art = new wxAuiDefaultToolBarArt;
-    m_toolPacking = FromDIP(2);
-    m_toolBorderPadding = FromDIP(3);
+    m_toolPacking = ::FromDIP(2, this);
+    m_toolBorderPadding = ::FromDIP(3, this);
     m_toolTextOrientation = wxAUI_TBTOOL_TEXT_BOTTOM;
     m_gripperSizerItem = NULL;
     m_overflowSizerItem = NULL;
@@ -875,8 +875,8 @@ bool wxAuiToolBar::Create(wxWindow* parent,
         m_orientation = wxHORIZONTAL;
     }
 
-    wxSize margin_lt = FromDIP(wxSize(5, 5));
-    wxSize margin_rb = FromDIP(wxSize(2, 2));
+    wxSize margin_lt = ::FromDIP(wxSize(5, 5), this);
+    wxSize margin_rb = ::FromDIP(wxSize(2, 2), this);
     SetMargins(margin_lt.x, margin_lt.y, margin_rb.x, margin_rb.y);
     SetFont(*wxNORMAL_FONT);
     SetArtFlags();
@@ -1262,7 +1262,7 @@ void wxAuiToolBar::SetToolBitmapSize(const wxSize& WXUNUSED(size))
 wxSize wxAuiToolBar::GetToolBitmapSize() const
 {
     // TODO: wxToolBar compatibility
-    return FromDIP(wxSize(16,15));
+    return ::FromDIP(wxSize(16,15), this);
 }
 
 void wxAuiToolBar::SetToolProportion(int tool_id, int proportion)
@@ -1294,7 +1294,7 @@ int wxAuiToolBar::GetToolSeparation() const
     if (m_art)
         return m_art->GetElementSize(wxAUI_TBART_SEPARATOR_SIZE);
     else
-        return FromDIP(5);
+        return ::FromDIP(5, this);
 }
 
 

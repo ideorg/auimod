@@ -680,7 +680,7 @@ void wxAuiTabContainer::Render(wxDC* raw_dc, wxWindow* wnd)
         }
 
         rect.x = offset;
-        rect.width = m_rect.width - right_buttons_width - offset - wnd->FromDIP(2);
+        rect.width = m_rect.width - right_buttons_width - offset - ::FromDIP(2, wnd);
 
         if (rect.width <= 0)
             break;
@@ -820,7 +820,7 @@ bool wxAuiTabContainer::IsTabVisible(int tabPage, int tabOffset, wxDC* dc, wxWin
         wxAuiNotebookPage& page = m_pages.Item(i);
         wxAuiTabContainerButton& tab_button = m_tabCloseButtons.Item(i);
 
-        rect.width = m_rect.width - right_buttons_width - offset - wnd->FromDIP(2);
+        rect.width = m_rect.width - right_buttons_width - offset - ::FromDIP(2, wnd);
 
         if (rect.width <= 0)
             return false; // haven't found the tab, and we've run out of space, so return false
@@ -840,7 +840,7 @@ bool wxAuiTabContainer::IsTabVisible(int tabPage, int tabOffset, wxDC* dc, wxWin
         {
             // If not all of the tab is visible, and supposing there's space to display it all,
             // we could do better so we return false.
-            if (((m_rect.width - right_buttons_width - offset - wnd->FromDIP(2)) <= 0) && ((m_rect.width - right_buttons_width - left_buttons_width) > x_extent))
+            if (((m_rect.width - right_buttons_width - offset - ::FromDIP(2, wnd)) <= 0) && ((m_rect.width - right_buttons_width - left_buttons_width) > x_extent))
                 return false;
             else
                 return true;
@@ -1550,8 +1550,8 @@ public:
     wxTabFrame()
     {
         m_tabs = NULL;
-        m_rect = wxRect(wxPoint(0,0), FromDIP(wxSize(200,200)));
-        m_tabCtrlHeight = FromDIP(20);
+        m_rect = wxRect(wxPoint(0,0), ::FromDIP(wxSize(200,200), this));
+        m_tabCtrlHeight = ::FromDIP(20, this);
     }
 
     ~wxTabFrame()
@@ -1743,7 +1743,7 @@ void wxAuiNotebook::Init()
     m_curPage = -1;
     m_tabIdCounter = wxAuiBaseTabCtrlId;
     m_dummyWnd = NULL;
-    m_tabCtrlHeight = FromDIP(20);
+    m_tabCtrlHeight = ::FromDIP(20, this);
     m_requestedBmpSize = wxDefaultSize;
     m_requestedTabCtrlHeight = -1;
 }
@@ -1771,7 +1771,7 @@ void wxAuiNotebook::InitNotebook(long style)
     m_tabIdCounter = wxAuiBaseTabCtrlId;
     m_dummyWnd = NULL;
     m_flags = (unsigned int)style;
-    m_tabCtrlHeight = FromDIP(20);
+    m_tabCtrlHeight = ::FromDIP(20, this);
 
     m_normalFont = *wxNORMAL_FONT;
     m_selectedFont = *wxNORMAL_FONT;
@@ -1780,7 +1780,7 @@ void wxAuiNotebook::InitNotebook(long style)
     SetArtProvider(new wxAuiDefaultTabArt);
 
     m_dummyWnd = new wxWindow(this, wxID_ANY, wxPoint(0,0), wxSize(0,0));
-    m_dummyWnd->SetSize(FromDIP(wxSize(200, 200)));
+    m_dummyWnd->SetSize(::FromDIP(wxSize(200, 200), this));
     m_dummyWnd->Show(false);
 
     m_mgr.SetManagedWindow(this);
@@ -1941,7 +1941,7 @@ wxSize wxAuiNotebook::CalculateNewSplitSize()
     {
         // this is in place of a more complicated calculation
         // that needs to be implemented
-        new_split_size = FromDIP(wxSize(180,180));
+        new_split_size = ::FromDIP(wxSize(180,180), this);
     }
 
     return new_split_size;

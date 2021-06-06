@@ -7,6 +7,8 @@ SET(GCC_COVERAGE_COMPILE_FLAGS "-Werror=return-type")
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 set(wxWidgets_ROOT_DIR /usr/include/wx-3.0)
+set(wxWidgets_INCLUDE_DIRS /usr/include/wx-3.0)
+set(wxWidgets_LIBRARIES/usr/lib/x86_64-linux-gnu)
 set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})

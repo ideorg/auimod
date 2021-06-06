@@ -244,12 +244,12 @@ wxAuiDefaultDockArt::wxAuiDefaultDockArt()
 #elif defined(__WXGTK__)
     m_sashSize     = wxRendererNative::Get().GetSplitterParams(NULL).widthSash;
 #else
-    m_sashSize     = wxWindow::FromDIP( 4, NULL);
+    m_sashSize     = ::FromDIP( 4, NULL);
 #endif
-    m_captionSize  = wxWindow::FromDIP(17, NULL);
+    m_captionSize  = ::FromDIP(17, NULL);
     m_borderSize   = 1;
-    m_buttonSize   = wxWindow::FromDIP(14, NULL);
-    m_gripperSize  = wxWindow::FromDIP( 9, NULL);
+    m_buttonSize   = ::FromDIP(14, NULL);
+    m_gripperSize  = ::FromDIP( 9, NULL);
     m_gradientType = wxAUI_GRADIENT_VERTICAL;
 
     InitBitmaps();
@@ -352,7 +352,7 @@ void wxAuiDefaultDockArt::UpdateColoursFromSystem()
     m_gripperBrush = wxBrush(baseColour);
 
     m_borderPen = wxPen(darker2Colour);
-    int pen_width = wxWindow::FromDIP(1, NULL);
+    int pen_width = ::FromDIP(1, NULL);
     m_gripperPen1 = wxPen(darker5Colour, pen_width);
     m_gripperPen2 = wxPen(darker3Colour, pen_width);
     m_gripperPen3 = wxPen(*wxStockGDI::GetColour(wxStockGDI::COLOUR_WHITE), pen_width);
@@ -666,7 +666,7 @@ void wxAuiDefaultDockArt::DrawCaption(wxDC& dc,
     {
         DrawIcon(dc, window, rect, pane);
 
-        caption_offset += pane.icon.GetScaledWidth() + window->FromDIP(3);
+        caption_offset += pane.icon.GetScaledWidth() + ::FromDIP(3, window);
     }
 
     if (pane.state & wxAuiPaneInfo::optionActive)
@@ -679,8 +679,8 @@ void wxAuiDefaultDockArt::DrawCaption(wxDC& dc,
     dc.GetTextExtent(wxT("ABCDEFHXfgkj"), &w, &h);
 
     wxRect clip_rect = rect;
-    clip_rect.width -= window->FromDIP(3); // text offset
-    clip_rect.width -= window->FromDIP(2); // button padding
+    clip_rect.width -= ::FromDIP(3, window); // text offset
+    clip_rect.width -= ::FromDIP(2, window); // button padding
     if (pane.HasCloseButton())
         clip_rect.width -= m_buttonSize;
     if (pane.HasPinButton())
@@ -691,7 +691,7 @@ void wxAuiDefaultDockArt::DrawCaption(wxDC& dc,
     wxString draw_text = wxAuiChopText(dc, text, clip_rect.width);
 
     dc.SetClippingRegion(clip_rect);
-    dc.DrawText(draw_text, rect.x+window->FromDIP(3) + caption_offset, rect.y+(rect.height/2)-(h/2)-1);
+    dc.DrawText(draw_text, rect.x + FromDIP(3, window) + caption_offset, rect.y+(rect.height/2)-(h/2)-1);
     dc.DestroyClippingRegion();
 }
 
@@ -706,7 +706,7 @@ void
 wxAuiDefaultDockArt::DrawIcon(wxDC& dc, wxWindow *window, const wxRect& rect, wxAuiPaneInfo& pane)
 {
     // Draw the icon centered vertically
-    int xOffset = window ? window->FromDIP(2) : 2;
+    int xOffset = window ? ::FromDIP(2, window) : 2;
     dc.DrawBitmap(pane.icon,
                   rect.x+xOffset, rect.y+(rect.height-pane.icon.GetScaledHeight())/2,
                   true);
@@ -724,41 +724,41 @@ void wxAuiDefaultDockArt::DrawGripper(wxDC& dc,
 
     if (!pane.HasGripperTop())
     {
-        int y = window->FromDIP(5);
+        int y = ::FromDIP(5, window);
         while (1)
         {
             dc.SetPen(m_gripperPen1);
-            dc.DrawPoint(rect.x+window->FromDIP(3), rect.y+y);
+            dc.DrawPoint(rect.x + ::FromDIP(3, window), rect.y+y);
             dc.SetPen(m_gripperPen2);
-            dc.DrawPoint(rect.x+window->FromDIP(3), rect.y+y+window->FromDIP(1));
-            dc.DrawPoint(rect.x+window->FromDIP(4), rect.y+y                   );
+            dc.DrawPoint(rect.x + ::FromDIP(3, window), rect.y + y + ::FromDIP(1, window));
+            dc.DrawPoint(rect.x + ::FromDIP(4, window), rect.y+y);
             dc.SetPen(m_gripperPen3);
-            dc.DrawPoint(rect.x+window->FromDIP(5), rect.y+y+window->FromDIP(1));
-            dc.DrawPoint(rect.x+window->FromDIP(5), rect.y+y+window->FromDIP(2));
-            dc.DrawPoint(rect.x+window->FromDIP(4), rect.y+y+window->FromDIP(2));
+            dc.DrawPoint(rect.x + ::FromDIP(5, window), rect.y+y + ::FromDIP(1, window));
+            dc.DrawPoint(rect.x + ::FromDIP(5, window), rect.y+y + ::FromDIP(2, window));
+            dc.DrawPoint(rect.x + ::FromDIP(4, window), rect.y+y + ::FromDIP(2, window));
 
-            y += window->FromDIP(4);
-            if (y > rect.GetHeight()-window->FromDIP(5))
+            y += ::FromDIP(4, window);
+            if (y > rect.GetHeight() - ::FromDIP(5, window))
                 break;
         }
     }
     else
     {
-        int x = window->FromDIP(5);
+        int x = ::FromDIP(5, window);
         while (1)
         {
             dc.SetPen(m_gripperPen1);
-            dc.DrawPoint(rect.x+x, rect.y+window->FromDIP(3));
+            dc.DrawPoint(rect.x+x, rect.y + ::FromDIP(3, window));
             dc.SetPen(m_gripperPen2);
-            dc.DrawPoint(rect.x+x+window->FromDIP(1), rect.y+window->FromDIP(3));
-            dc.DrawPoint(rect.x+x                   , rect.y+window->FromDIP(4));
+            dc.DrawPoint(rect.x+x + ::FromDIP(1, window), rect.y + ::FromDIP(3, window));
+            dc.DrawPoint(rect.x+x                   , rect.y + ::FromDIP(4, window));
             dc.SetPen(m_gripperPen3);
-            dc.DrawPoint(rect.x+x+window->FromDIP(1), rect.y+window->FromDIP(5));
-            dc.DrawPoint(rect.x+x+window->FromDIP(2), rect.y+window->FromDIP(5));
-            dc.DrawPoint(rect.x+x+window->FromDIP(2), rect.y+window->FromDIP(4));
+            dc.DrawPoint(rect.x+x + ::FromDIP(1, window), rect.y + ::FromDIP(5, window));
+            dc.DrawPoint(rect.x+x + ::FromDIP(2, window), rect.y + ::FromDIP(5, window));
+            dc.DrawPoint(rect.x+x + ::FromDIP(2, window), rect.y + ::FromDIP(4, window));
 
-            x += window->FromDIP(4);
-            if (x > rect.GetWidth()-window->FromDIP(5))
+            x += ::FromDIP(4, window);
+            if (x > rect.GetWidth() - ::FromDIP(5, window))
                 break;
         }
     }
@@ -805,7 +805,7 @@ void wxAuiDefaultDockArt::DrawPaneButton(wxDC& dc,
             break;
     }
 
-    wxAuiScaleBitmap(bmp, window->GetDPIScaleFactor());
+    //not implement; wxAuiScaleBitmap(bmp, window->GetDPIScaleFactor());
 
     wxRect rect = _rect;
 
@@ -813,8 +813,8 @@ void wxAuiDefaultDockArt::DrawPaneButton(wxDC& dc,
 
     if (button_state == wxAUI_BUTTON_STATE_PRESSED)
     {
-        rect.x += window->FromDIP(1);
-        rect.y += window->FromDIP(1);
+        rect.x += ::FromDIP(1, window);
+        rect.y += ::FromDIP(1, window);
     }
 
     if (button_state == wxAUI_BUTTON_STATE_HOVER ||
@@ -833,8 +833,8 @@ void wxAuiDefaultDockArt::DrawPaneButton(wxDC& dc,
 
         // draw the background behind the button
         dc.DrawRectangle(rect.x, rect.y,
-            bmp.GetScaledWidth() - window->FromDIP(1),
-            bmp.GetScaledHeight() - window->FromDIP(1));
+            bmp.GetScaledWidth() - ::FromDIP(1, window),
+            bmp.GetScaledHeight() - ::FromDIP(1, window));
     }
 
     // draw the button itself

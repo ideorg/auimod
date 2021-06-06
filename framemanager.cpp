@@ -1847,7 +1847,7 @@ void wxAuiManager::LayoutAddPane(wxSizer* cont,
         // of them to ease visual crowding
         if (button_count >= 1)
         {
-            caption_sizer->Add(m_frame->FromDIP(3),1);
+            caption_sizer->Add(::FromDIP(3, m_frame),1);
         }
 
         // add the caption sizer
@@ -2238,7 +2238,7 @@ wxSizer* wxAuiManager::LayoutAll(wxAuiPaneInfoArray& panes,
                 size = wxMin(size, max_dock_x_size);
 
             // absolute minimum size for a dock is 10 pixels
-            size = wxMax(size, m_frame->FromDIP(10));
+            size = wxMax(size, ::FromDIP(10, m_frame));
 
             dock.size = size;
         }
@@ -2918,9 +2918,9 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
 
     wxSize layer_insert_offset;
     if (!drop.IsToolbar())
-        layer_insert_offset = m_frame->FromDIP(wxSize(auiLayerInsertOffset, auiLayerInsertOffset));
+        layer_insert_offset = ::FromDIP(wxSize(auiLayerInsertOffset, auiLayerInsertOffset), m_frame);
 
-    wxSize layer_insert_pixels = m_frame->FromDIP(wxSize(auiLayerInsertPixels, auiLayerInsertPixels));
+    wxSize layer_insert_pixels = ::FromDIP(wxSize(auiLayerInsertPixels, auiLayerInsertPixels), m_frame);
 
     if (pt.x < layer_insert_offset.x &&
         pt.x > layer_insert_offset.x-layer_insert_pixels.x &&
@@ -3043,7 +3043,7 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
         m_skipping = false;
 
         m_lastRect = part->dock->rect;
-        m_lastRect.Inflate( m_frame->FromDIP(wxSize(15, 15)) );
+        m_lastRect.Inflate( ::FromDIP(wxSize(15, 15), m_frame) );
 
         drop.Dock().
              Direction(part->dock->dock_direction).
@@ -3178,7 +3178,7 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
         int insert_row = part->pane->dock_row;
         int insert_dir = part->pane->dock_direction;
         int insert_layer = part->pane->dock_layer;
-        wxSize insert_row_pixels = m_frame->FromDIP(wxSize(auiInsertRowPixels, auiInsertRowPixels));
+        wxSize insert_row_pixels = FromDIP(wxSize(auiInsertRowPixels, auiInsertRowPixels), m_frame);
 
         switch (part->pane->dock_direction)
         {
@@ -3206,7 +3206,7 @@ bool wxAuiManager::DoDrop(wxAuiDockInfoArray& docks,
             {
                 // "new row pixels" will be set to the default, but
                 // must never exceed 20% of the window size
-                wxSize new_row_pixels = m_frame->FromDIP(wxSize(auiNewRowPixels, auiNewRowPixels));
+                wxSize new_row_pixels = ::FromDIP(wxSize(auiNewRowPixels, auiNewRowPixels), m_frame);
                 int new_row_pixels_x = new_row_pixels.x;
                 int new_row_pixels_y = new_row_pixels.y;
 
@@ -3388,9 +3388,9 @@ void wxAuiManager::ShowHint(const wxRect& rect)
                 wxRect r = pane.frame->GetRect();
 #ifdef __WXGTK__
                 // wxGTK returns the client size, not the whole frame size
-                r.width += pane.frame->FromDIP(15);
-                r.height += pane.frame->FromDIP(35);
-                r.Inflate(pane.frame->FromDIP(wxSize(5, 5)));
+                r.width += ::FromDIP(15, pane.frame);
+                r.height += ::FromDIP(35, pane.frame);
+                r.Inflate(::FromDIP(wxSize(5, 5), pane.frame));
 #endif
 
                 clip.Subtract(r);
@@ -3409,10 +3409,10 @@ void wxAuiManager::ShowHint(const wxRect& rect)
         screendc.SetBrush(brush);
         screendc.SetPen(*wxTRANSPARENT_PEN);
 
-        screendc.DrawRectangle(rect.x, rect.y, m_frame->FromDIP(5), rect.height);
-        screendc.DrawRectangle(rect.x + m_frame->FromDIP(5), rect.y, rect.width - m_frame->FromDIP(10), m_frame->FromDIP(5));
-        screendc.DrawRectangle(rect.x + rect.width - m_frame->FromDIP(5), rect.y, m_frame->FromDIP(5), rect.height);
-        screendc.DrawRectangle(rect.x + m_frame->FromDIP(5), rect.y + rect.height - m_frame->FromDIP(5), rect.width - m_frame->FromDIP(10), m_frame->FromDIP(5));
+        screendc.DrawRectangle(rect.x, rect.y, ::FromDIP(5, m_frame), rect.height);
+        screendc.DrawRectangle(rect.x + ::FromDIP(5, m_frame), rect.y, rect.width - ::FromDIP(10, m_frame), ::FromDIP(5, m_frame));
+        screendc.DrawRectangle(rect.x + rect.width - ::FromDIP(5, m_frame), rect.y, ::FromDIP(5, m_frame), rect.height);
+        screendc.DrawRectangle(rect.x + ::FromDIP(5, m_frame), rect.y + rect.height - ::FromDIP(5, m_frame), rect.width - ::FromDIP(10, m_frame), ::FromDIP(5, m_frame));
     }
 }
 
@@ -4646,7 +4646,7 @@ void wxAuiManager::OnMotion(wxMouseEvent& event)
                     // in that case we need to set the action offset to a sensible value
                     wxSize frame_size = m_actionWindow->GetSize();
                     if (frame_size.x <= m_actionOffset.x)
-                        m_actionOffset.x = paneInfo->frame->FromDIP(30);
+                        m_actionOffset.x = ::FromDIP(30, paneInfo->frame);
                 }
             }
             else

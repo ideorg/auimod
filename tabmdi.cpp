@@ -745,7 +745,7 @@ bool wxAuiMDIClientWindow::CreateClient(wxAuiMDIParentFrame* parent, long style)
     if (!wxAuiNotebook::Create(parent,
                                wxID_ANY,
                                wxPoint(0,0),
-                               parent->FromDIP(wxSize(100, 100)),
+                               ::FromDIP(wxSize(100, 100), parent),
                                wxAUI_NB_DEFAULT_STYLE | wxNO_BORDER))
     {
         return false;
